@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Feirante - Gestão de Feiras</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; padding: 20px; }
+        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+        h2 { color: #333; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #555; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { padding: 10px 20px; background-color: #28a745; border: none; color: white; border-radius: 4px; font-size: 16px; cursor: pointer; min-height: 44px; }
+        button:hover { background-color: #218838; }
+        a { display: inline-block; margin-top: 15px; color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Novo Cadastro de Feirante</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="documento">Documento de Identificação (CPF/BI)</label>
+                <input type="text" id="documento" name="documento" required>
+            </div>
+            <div class="form-group">
+                <label for="setor_barraca">Setor da Barraca</label>
+                <input type="text" id="setor_barraca" name="setor_barraca" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone (Opcional)</label>
+                <input type="text" id="telefone" name="telefone">
+            </div>
+            <button type="submit">Adicionar Feirante</button>
+        </form>
+        <a href="{{ url_for('dashboard') }}">Voltar à Listagem</a>
+    </div>
+</body>
+</html>

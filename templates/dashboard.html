@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Controlo de Taxas - Gestão de Feiras</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        h2 { color: #333; margin: 0; }
+        .btn { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; text-decoration: none; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; }
+        .btn-success { background-color: #28a745; }
+        .btn-danger { background-color: #dc3545; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f9fa; color: #333; }
+        .badge-pago { background-color: #d4edda; color: #155724; padding: 5px 10px; border-radius: 4px; font-weight: bold; }
+        .badge-pendente { background-color: #f8d7da; color: #721c24; padding: 5px 10px; border-radius: 4px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h2>Controlo de Taxas Semanais</h2>
+            <div>
+                <a href="{{ url_for('novo_feirante') }}" class="btn btn-success">+ Novo Feirante</a>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">Sair</a>
+            </div>
+        </header>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Setor</th>
+                    <th>Documento</th>
+                    <th>Taxa / Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feirante in feirantes %}
+                    {% for taxa in feirante.taxas %}
+                    <tr>
+                        <td>{{ feirante.nome }}</td>
+                        <td>{{ feirante.setor_barraca }}</td>
+                        <td>{{ feirante.documento }}</td>
+                        <td>
+                            R$ {{ taxa.valor }} - 
+                            {% if taxa.status == 'pago' %}
+                                <span class="badge-pago">Pago</span>
+                            {% else %}
+                                <span class="badge-pendente">Pendente</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('alternar_taxa', taxa_id=taxa.id) }}" class="btn" style="padding: 5px 10px; font-size: 14px;">Alternar Status</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #777;">Nenhum feirante cadastrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
